@@ -61,6 +61,7 @@ public class Order {
         return size;
     }
 
+    //todo: ты здесь должна вернуть массив без null-ов
     public Dish[] getDishes() {
         return dishes;
     }
