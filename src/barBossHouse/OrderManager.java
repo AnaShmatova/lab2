@@ -26,9 +26,10 @@ public class OrderManager {
     public void removeOrder(int tableNumber) {
         orders[tableNumber - 1] = null;
     }
-
+    //TODO: 2.05 добавь get к имени
     public int freeTableNumber() {
         for (int i = 0; i < orders.length; i++) {
+            //TODO: 2.05 этот if будет всегда возвращать false
             if (orders[i].equals(null)) {
                 return i + 1;
             }
@@ -50,7 +51,7 @@ public class OrderManager {
         }
         return numberFreeTables;
     }
-
+    //TODO: 2.05 ужос имена
     public int[] predicateNoFreeTableNumbers(Predicate isP1) {
         return tableNumbers(new NotIsNullPredicate());
     }
@@ -62,6 +63,7 @@ public class OrderManager {
     public Order[] getOrders() {
         //todo: очень плохое имя для переменной
         //сделала
+        //TODO: 2.05 аэм. вызывать метод для свободных столиков, чтобы передать не-null предикат?оО
         int[] table = predicateFreeTableNumbers(new NotIsNullPredicate());
         Order[] atTheMomentOrders = new Order[table.length];
         for (int i = 0; i < table.length; i++) {

@@ -1,11 +1,11 @@
 package barBossHouse;
 
 public class Dish {
+    public static final int DEFAULT_COST = 0;
     private double cost;
     private String name;
     private String description;
 
-    public static final int DEFAULT_COST = 0;
     public Dish(String newName, String newDescription) {
         //todo: мы выносим дефолтные значения в константы с понятным именем
         //сделала
