@@ -1,13 +1,13 @@
 package barBossHouse;
 
+import java.util.function.Predicate;
+
 //todo: все ранние замечания справедливы для этого класса тоже.
 //todo: буду ставить пустые //todo:
 public class OrderManager {
     private Order[] orders;
-    private int tableNumber; //todo: что это такое? оО
 
     public OrderManager(int newTableNumber) {
-        tableNumber = newTableNumber;
         orders = new Order[newTableNumber];
     }
 
@@ -38,44 +38,41 @@ public class OrderManager {
 
     //todo: И мы переписываем эти два метода ниже на использование предиката или паттерна Стратегия. Чтобы не допустить
     //todo: дублирования кода.
-    public int[] freeTableNumbers() {
+    //сделала
+    private int[] tableNumbers(Predicate isP) {
         int j = 0;
-        int[] numberFreeTables = new int[tableNumber];
+        int[] numberFreeTables = new int[orders.length];
         for (int i = 0; i < orders.length; i++) {
-            //todo: даже среда подсказывает, что эта проверка всегда будет false
-            if (orders[i].equals(null)) {
-                numberFreeTables[j] = i + 1;
+            if (isP.test(orders[i])) {
+                numberFreeTables[j] = i;
+                j++;
             }
         }
         return numberFreeTables;
     }
 
-    public int[] noFreeTableNumbers() {
-        int j = 0;
-        int[] numberNoFreeTables = new int[tableNumber];
-        for (int i = 0; i < orders.length; i++) {
-            //todo: а здесь всегда будет true
-            if (!orders[i].equals(null)) {
-                numberNoFreeTables[j] = i + 1;
-                j++;
-            }
-        }
-        return numberNoFreeTables;
+    public int[] predicateNoFreeTableNumbers(Predicate isP1) {
+        return tableNumbers(new NotIsNullPredicate());
+    }
+
+    public int[] predicateFreeTableNumbers(Predicate isP1) {
+        return tableNumbers(new IsNullPredicate());
     }
 
     public Order[] getOrders() {
         //todo: очень плохое имя для переменной
-        int[] frtre = noFreeTableNumbers();
-        Order[] atTheMomentOrders = new Order[frtre.length];
-        for (int i = 0; i < frtre.length; i++) {
-            atTheMomentOrders[i] = orders[frtre[i] - 1];
+        //сделала
+        int[] table = predicateFreeTableNumbers(new NotIsNullPredicate());
+        Order[] atTheMomentOrders = new Order[table.length];
+        for (int i = 0; i < table.length; i++) {
+            atTheMomentOrders[i] = orders[table[i] - 1];
         }
         return atTheMomentOrders;
     }
 
     public double ordersCostSummary() {
         double sum = 0;
-        for (int i = 0; i < tableNumber; i++) {
+        for (int i = 0; i < orders.length; i++) {
             sum += orders[i].costTotal();
         }
         return sum;
@@ -92,4 +89,21 @@ public class OrderManager {
     }
 
 
+}
+
+class IsNullPredicate implements java.util.function.Predicate<Order> {
+
+    @Override
+    public boolean test(Order order) {
+        return order == null;
+    }
+}
+
+
+class NotIsNullPredicate implements java.util.function.Predicate<Order> {
+
+    @Override
+    public boolean test(Order order) {
+        return order != null;
+    }
 }

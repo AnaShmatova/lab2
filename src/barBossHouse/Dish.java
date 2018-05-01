@@ -5,18 +5,19 @@ public class Dish {
     private String name;
     private String description;
 
-    public static final int DEFAULT_COST = 0;//4
+    public static final int DEFAULT_COST = 0;
     public Dish(String newName, String newDescription) {
         //todo: мы выносим дефолтные значения в константы с понятным именем
-        cost = 0;
-        name = newName;
-        description = newDescription;
+        //сделала
         this(DEFAULT_COST, newName, newDescription);
     }
 
-    public Dish(double newCost1, String newName1, String newDescription1) {
+    public Dish(double cost, String name, String description1) {
         //todo: наоборот, более узкий контейнер должен вызывать более широкий
-        cost = newCost1;
+        //сделала
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
     }
 
     public double getCost() {
