@@ -27,10 +27,11 @@ public class OrderManager {
         orders[tableNumber - 1] = null;
     }
     //TODO: 2.05 добавь get к имени
-    public int freeTableNumber() {
+    public int getFreeTableNumber() {
         for (int i = 0; i < orders.length; i++) {
             //TODO: 2.05 этот if будет всегда возвращать false
-            if (orders[i].equals(null)) {
+            //так?
+            if (orders[i] == null) {
                 return i + 1;
             }
         }
@@ -52,6 +53,7 @@ public class OrderManager {
         return numberFreeTables;
     }
     //TODO: 2.05 ужос имена
+    //Это не я так называла)) а Михаил Александрович ))
     public int[] predicateNoFreeTableNumbers(Predicate isP1) {
         return tableNumbers(new NotIsNullPredicate());
     }
@@ -64,6 +66,8 @@ public class OrderManager {
         //todo: очень плохое имя для переменной
         //сделала
         //TODO: 2.05 аэм. вызывать метод для свободных столиков, чтобы передать не-null предикат?оО
+        //я запуталась, так как мне нуно было использовать метод noFreeTableNumbers (предыдущий метод),
+        //но так как он состоит сейчас с предикатом я не знаю как его можно употребить здесь
         int[] table = predicateFreeTableNumbers(new NotIsNullPredicate());
         Order[] atTheMomentOrders = new Order[table.length];
         for (int i = 0; i < table.length; i++) {

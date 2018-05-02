@@ -14,7 +14,8 @@ public class Order {
 
     public Order(int newSize) {
         //TODO: 2.05 поле хранит реальный размер, а ты ему емкость передаешь. Вот и проблема именования всплыла))
-        size = newSize;
+        //сделала
+        size = 0;
         dishes = new Dish[newSize];
     }
 
@@ -32,25 +33,25 @@ public class Order {
         //todo: если нет, то увеличиваешь массив в два раза, копируешь элементы с помощью System.arraycopy и уже тогда добавляешь
         //сделала
         //TODO: 2.05 нифига не сделала) ниже может соглашусь, а на этот цикл никогда)
-        for (int i = 0; i < 16; i++) {
-            if (dishes[i] == null) {
-                dishes[i] = dish;
-                return true;
-            }
+        //сделала
+        dishes[size] = dish;
+        if (size == 16) {
+            Dish[] arr = new Dish[dishes.length * 2];
+            System.arraycopy(dishes, 0, arr, dishes.length, dishes.length);
+            arr[size] = dish;
+            dishes = arr;
         }
-        Dish[] arr = new Dish[dishes.length * 2];
-        System.arraycopy(dishes, 0, arr, dishes.length, dishes.length);
-        arr[size] = dish;
-        dishes = arr;
         return true;
     }
 
     //TODO: 2.05 ты так упорно апеллировала к этому методу, что я нашел ошибку) Кто будет удалять последние элементы, раз они скопировались на позицию влево?)
+    //сделала
     public boolean removeDishInOrder(String nameDish) {
         for (int i = 0; i < size; i++) {
             if (dishes[i].getName().equals(nameDish)) {
                 System.arraycopy(dishes, i, dishes, i + 1, size - i - 1);
                 size--;
+                dishes[size] = null;
                 i--;
                 return true;
             }
@@ -79,8 +80,11 @@ public class Order {
     //todo: ты здесь должна вернуть массив без null-ов
     //в методе remove и так без дырок все делается )))
     //TODO: 2.05 а null-ы в конце ты не учитываешь?
+    //сделала
     public Dish[] getDishes() {
-        return dishes;
+        Dish[] arr = new Dish[size];
+        System.arraycopy(dishes, 0, arr, 0, size);
+        return arr;
     }
 
     public double costTotal() {
@@ -104,6 +108,7 @@ public class Order {
     //todo: Тебе нужно вернуть массив имен без повторений и без null-ов в конце
     //про null-ы - все в remove
 //TODO: 2.05 опять же, от null-ов в конце ты не избавляешься
+    //сделала
     public String[] dishesNames() {
         int count = 0;
         String[] dishesNames = new String[size];
@@ -112,11 +117,14 @@ public class Order {
                 if (dishes[i].getName().equals(dishesNames[j])) {
                     break;
                 } else {
-                    dishesNames[count++] = dishes[i].getName();
+                    dishesNames[count] = dishes[i].getName();
+                    count++;
                 }
             }
         }
-        return dishesNames;
+        String[] arr = new String[count];
+        System.arraycopy(dishes, 0, arr, 0, count);
+        return arr;
     }
 
     public Dish[] sortedDishesByCostDesc() {
@@ -125,6 +133,7 @@ public class Order {
         Dish temp;
         //TODO: 2.05 имя так себе)
         Dish[] dishes1 = new Dish[dishes.length];
+        System.arraycopy(dishes,0, dishes1, 0, dishes.length);
         for (int i = 0; i < dishes1.length; i++) {
             for (int j = 0; j < dishes1.length - 1; j++) {
                 //TODO: 2.05 ты сортируешь пустой массив?) забавно
@@ -136,6 +145,6 @@ public class Order {
             }
         }
         //TODO: 2.05 и возвращаешь неотсортированное поле, отлично (нет)
-        return dishes;
+        return dishes1;
     }
 }
