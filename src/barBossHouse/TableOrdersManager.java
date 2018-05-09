@@ -4,22 +4,22 @@ import java.util.function.Predicate;
 
 //todo: все ранние замечания справедливы для этого класса тоже.
 //todo: буду ставить пустые //todo:
-public class OrderManager {
-    private Order[] orders;
+public class TableOrdersManager implements OrdersManager {
+    private TableOrder[] orders;
 
-    public OrderManager(int newTableNumber) {
-        orders = new Order[newTableNumber];
+    public TableOrdersManager(int newTableNumber) {
+        orders = new TableOrder[newTableNumber];
     }
 
-    public void add(Order order, int tableNumber) {
+    public void add(TableOrder order, int tableNumber) {
         orders[tableNumber - 1] = order;
     }
 
-    public Order getOrder(int tableNumber) {
+    public TableOrder getOrder(int tableNumber) {
         return orders[tableNumber - 1];
     }
 
-    public void addDish(Dish dish, int tableNumber) {
+    public void addDish(MenuItem dish, int tableNumber) {
         orders[tableNumber - 1].addDishInOrder(dish);
     }
 
@@ -62,14 +62,14 @@ public class OrderManager {
         return tableNumbers(new IsNullPredicate());
     }
 
-    public Order[] getOrders() {
+    public TableOrder[] getOrders() {
         //todo: очень плохое имя для переменной
         //сделала
         //TODO: 2.05 аэм. вызывать метод для свободных столиков, чтобы передать не-null предикат?оО
         //я запуталась, так как мне нуно было использовать метод noFreeTableNumbers (предыдущий метод),
         //но так как он состоит сейчас с предикатом я не знаю как его можно употребить здесь
         int[] table = predicateFreeTableNumbers(new NotIsNullPredicate());
-        Order[] atTheMomentOrders = new Order[table.length];
+        TableOrder[] atTheMomentOrders = new TableOrder[table.length];
         for (int i = 0; i < table.length; i++) {
             atTheMomentOrders[i] = orders[table[i] - 1];
         }
@@ -97,19 +97,19 @@ public class OrderManager {
 
 }
 
-class IsNullPredicate implements java.util.function.Predicate<Order> {
+class IsNullPredicate implements java.util.function.Predicate<TableOrder> {
 
     @Override
-    public boolean test(Order order) {
+    public boolean test(TableOrder order) {
         return order == null;
     }
 }
 
 
-class NotIsNullPredicate implements java.util.function.Predicate<Order> {
+class NotIsNullPredicate implements java.util.function.Predicate<TableOrder> {
 
     @Override
-    public boolean test(Order order) {
+    public boolean test(TableOrder order) {
         return order != null;
     }
 }
