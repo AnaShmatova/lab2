@@ -19,8 +19,4 @@ public interface Order {
     void setCustomer(Customer customer);
 
 
-
-
-
-
 }

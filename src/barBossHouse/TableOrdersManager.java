@@ -1,7 +1,5 @@
 package barBossHouse;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 import java.util.function.Predicate;
 
 //todo: все ранние замечания справедливы для этого класса тоже.
@@ -19,12 +17,9 @@ public class TableOrdersManager implements OrdersManager {
     }
 
     public TableOrder getOrder(int tableNumber) {
-        return orders[tableNumber - 1];
+        return (TableOrder) orders[tableNumber - 1];
     }
 
-    public void addDish(MenuItem dish, int tableNumber) {
-        orders[tableNumber - 1].addDishInOrder(dish);
-    }
 
     public void removeOrder(int tableNumber) {
         orders[tableNumber - 1] = null;
@@ -74,7 +69,7 @@ public class TableOrdersManager implements OrdersManager {
         int[] table = predicateFreeTableNumbers(new NotIsNullPredicate());
         TableOrder[] atTheMomentOrders = new TableOrder[table.length];
         for (int i = 0; i < table.length; i++) {
-            atTheMomentOrders[i] = orders[table[i] - 1];
+            atTheMomentOrders[i] = (TableOrder) orders[table[i] - 1];
         }
         return atTheMomentOrders;
     }
@@ -87,15 +82,28 @@ public class TableOrdersManager implements OrdersManager {
         return sum;
     }
 
-    public int dishQuantity(String dishName) {
-        int sum = 0;
+    @Override
+    public int itemsQuantity(String itemName) {
+        int count = 0;
         for (int i = 0; i < orders.length; i++) {
-            if (orders[i] != null) {
-                sum += orders[i].dishQuantity(dishName);
+            if (orders[i].equals(itemName)) {
+                count++;
             }
         }
-        return sum;
+        return count;
     }
+
+    @Override
+    public int itemsQuantity(MenuItem item) {
+        int count = 0;
+        for (int i = 0; i < orders.length; i++) {
+            if (orders[i].equals(item)){
+                count++;
+            }
+        }
+        return count;
+    }
+
 
     public int ordersQuantity() {
         return orders.length;
@@ -112,16 +120,33 @@ public class TableOrdersManager implements OrdersManager {
     }
 
     public int remove(Order order) {
-        if (orders[i] = null;) {
-            return tableNumbers(); //опять что то с предикатами
+        int count = 0;
+        for (int i = 0; i < orders.length; i++) {
+
+            if (orders[i].equals(order)) {
+                orders[i] = null;
+                count++;
+                System.arraycopy(orders, i + 1, orders, i, orders.length - i);
+                return i;
+            }
         }
         return -1;
     }
 
     public int removeAll(Order order) {
+        int count = 0;
         for (int i = 0; i < orders.length; i++) {
-            if (orders[i].)
+
+            if (orders[i].equals(order)) {
+                orders[i] = null;
+                count++;
+                System.arraycopy(orders, i + 1, orders, i, orders.length - i);
+            }
         }
+        if (count > 0)
+            return count;
+        else
+            return -1;
     }
 
 

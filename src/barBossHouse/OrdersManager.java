@@ -4,7 +4,7 @@ public interface OrdersManager {
 
     int ordersQuantity();
     Order[] getOrders();
-    int ordersCostSummary();
+    double ordersCostSummary();
     int itemsQuantity(String itemName);
     int itemsQuantity(MenuItem item);
 }
