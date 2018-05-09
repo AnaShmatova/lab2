@@ -46,5 +46,4 @@ public class Listik<T> {
         x.tail = x.tail.tail;
     }
 
-
 }

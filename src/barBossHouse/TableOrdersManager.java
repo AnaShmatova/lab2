@@ -1,11 +1,14 @@
 package barBossHouse;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
+
 import java.util.function.Predicate;
 
 //todo: все ранние замечания справедливы для этого класса тоже.
 //todo: буду ставить пустые //todo:
 public class TableOrdersManager implements OrdersManager {
-    private TableOrder[] orders;
+    private Order[] orders;
+    private Order interfes;
 
     public TableOrdersManager(int newTableNumber) {
         orders = new TableOrder[newTableNumber];
@@ -93,6 +96,34 @@ public class TableOrdersManager implements OrdersManager {
         }
         return sum;
     }
+
+    public int ordersQuantity() {
+        return orders.length;
+    }
+
+    public int addItem(MenuItem item, int tableNumber) {
+        int sum = 0;
+        for (int i = 0; i < tableNumber; i++) {
+            if (tableNumber != 0) {
+                sum++;
+            }
+        }
+        return sum;
+    }
+
+    public int remove(Order order) {
+        if (orders[i] = null;) {
+            return tableNumbers(); //опять что то с предикатами
+        }
+        return -1;
+    }
+
+    public int removeAll(Order order) {
+        for (int i = 0; i < orders.length; i++) {
+            if (orders[i].)
+        }
+    }
+
 
 
 }
