@@ -1,49 +1,55 @@
 package barBossHouse;
 
+
+
 public class Listik<T> {
 
-    private Listik<T> head;
-    private Listik<T> tail;
-    private T value;
+    private Node<T> head;
+    private Node<T> tail;
+
     public int size;
 
     public Listik() {
         this.size = 0;
     }
 
-    public Listik(T item) {
-        this.value = item;
-    }
+
 
     public T get(int index) {
-        Listik y;
-        Listik x = this; //указывает, что это первый элемент
+        Node y;
+        Node x = head; //указывает, что это первый элемент
         for (int i = 0; i < index; i++) {
-            y = x.tail; //ссылка следующего элемента
+            y = x.next; //ссылка следующего элемента
             x = y;
         }
-        return value;
+        return (T) x.value;
     }
 
     public void add(T item) {
-        Listik x = this;
-        Listik y = null;
+        Node x = head;
+        Node y = null;
+        if(size==0)
+        {
+            head.value = item;
+            size++;
+            return;
+        }
         for (int i = 0; i < size; i++) {
-            y = x.tail;
+            y = x.next;
             x = y;
         }
-        y.tail = new Listik(item);
+        y.next = new Node(item);
         size++;
     }
 
     public void remove(int index) {
-        Listik x = this;
-        Listik y;
+        Node x = head;
+        Node y;
         for (int i = 0; i < index-1; i++) {
-            y = x.tail;
+            y = x.next;
             x = y;
         }
-        x.tail = x.tail.tail;
+        x.next = x.next.next;
     }
 
 }
