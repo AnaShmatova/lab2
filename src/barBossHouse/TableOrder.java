@@ -1,7 +1,7 @@
 package barBossHouse;
 
 //todo дублирующиеся методы удали
-
+//сделала
 public class TableOrder implements Order {
 
     private int size;
@@ -61,8 +61,11 @@ public class TableOrder implements Order {
         return count;
     }
 //todo возвращай копию массива
+    //сделала
     public MenuItem[] getItems() {
-        return items;
+        MenuItem[] copyItems = new MenuItem[size];
+        System.arraycopy(items, 0, copyItems, 0, size);
+        return copyItems;
     }
 
 //correct
@@ -73,7 +76,7 @@ public class TableOrder implements Order {
             items = arr;
         }
         items[size] = dish;
-size++;
+        size++;
         return true;
     }
 //correct
@@ -174,11 +177,33 @@ size++;
     }
 
     //todo массив имен без повторов
+    //сделала
     @Override
     public String[] itemsNames() {
+        int count = 0;
         String[] arr = new String[size];
         for (int i = 0; i < size ; i++) {
             arr[i] = items[i].getName();
+        }
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (arr[i] != null && arr[j] != null && arr[i].equals(arr[j])) {  //Заменяет дубликаты на null Записывает колличество нулей в переменну nulls
+                    arr[j] = null;
+                    count++;
+                }
+            }
+        }
+        for (int i = size - 1; i >= 0; i--) {    //Выталкиват null в конец массива.
+            for (int j = 0; j < i; j++) {
+                if (arr[j] == null) {
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = null;
+                }
+            }
+        }
+        String[] result = new String[size - count];
+        for (int i = 0; i < size; i++) {          //Удаляет нули.
+            result[i] = arr[i];
         }
         return arr;
     }
@@ -188,10 +213,8 @@ size++;
         MenuItem count = null;
         MenuItem[] arr = new MenuItem[size];
         //todo arraycopy
-        System.arraycopy();
-        for (int i = 0; i < size; i++) {
-            arr[i] = items[i];
-        }
+        //сделала
+        System.arraycopy(arr, 0, items, 0, size);
         for (int k = 0; k < size-1 ; k++) {
             for (int j = k+1; j < size; j++) {
                 if (arr[k].getCost()>arr[j].getCost()) {
@@ -260,8 +283,10 @@ size++;
     }
 
     //todo исправить насчет equals, написать проверку на каждый лемент (fori)
+    //сделала
     @Override
     public boolean equals(Object obj) {
+        boolean condition = true;
         if(obj == null) {
             return false;
         }
@@ -273,11 +298,10 @@ size++;
             TableOrder comparison = (TableOrder) obj;
             if (comparison.customer == this.customer && comparison.size == this.size)
             for (int i = 0; i < items.length; i++) {
-                comparison.equals(items);
+               condition ^= comparison.items[i].equals(this.items[i]);
             }
-
         }
-        return equals((Object) obj);
+        return condition;
     }
 
     @Override

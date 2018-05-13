@@ -60,16 +60,15 @@ public class Drink extends MenuItem implements Alcoholable {
 
     @Override
     public boolean equals(Object obj) {
-
             return super.equals(obj) &&
                     ((Drink) obj).equals(super.description) &&
-                    comparison.alcoholVol == this.alcoholVol &&
-                    comparison.type == this.type;
+                    ((Drink) obj).alcoholVol == this.alcoholVol &&
+                    ((Drink) obj).type == this.type;
     }
 
     @Override
     //todo equals toString() вызывай реализацию из суперкласса и добавляй к ним особенности этого класса
     public int hashCode() {
-        return super.hashCode()^type.hashCode()^alcoholVol+++;
+        return super.hashCode()^type.hashCode()^Double.hashCode(this.alcoholVol);
     }
 }
