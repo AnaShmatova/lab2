@@ -4,16 +4,14 @@ public abstract class MenuItem {
     public static final int DEFAULT_COST = 0;
     private int cost;
     private String name;
-    private String description;
+    public String description;
 
     protected MenuItem(int name, String newName, DrinkTypeEnum type, String newDescription, double alcoholVol) {
-        //todo: мы выносим дефолтные значения в константы с понятным именем
         //сделала
         this(DEFAULT_COST, newName, newDescription);
     }
 
     protected MenuItem(int cost, String name, String description) {
-        //todo: наоборот, более узкий контейнер должен вызывать более широкий
         //сделала
         this.name = name;
         this.description = description;

@@ -2,11 +2,8 @@ package barBossHouse;
 
 public class Drink extends MenuItem implements Alcoholable {
 
-    private int newCost;
-    private String newName;
     private double alcoholVol;
     private DrinkTypeEnum type;
-    private String newDescription;
 
     public Drink(int cost, String name, String description){
         super(cost, name, description);
@@ -20,12 +17,9 @@ public class Drink extends MenuItem implements Alcoholable {
         this(newCost, newName,type,newDescription,0);
     }
 
-    public Drink(int newCost, String newName, DrinkTypeEnum type, String newDescription, double alcoholVol){
-        super(newCost, newName, type, newDescription, alcoholVol);
-        this.newCost = newCost;
-        this.newName = newName;
+    public Drink(int cost, String name, DrinkTypeEnum type, String description, double alcoholVol){
+        super(cost, name, description);
         this.type = type;
-        this.newDescription = newDescription;
         this.alcoholVol = alcoholVol;
     }
 
@@ -47,48 +41,35 @@ public class Drink extends MenuItem implements Alcoholable {
 
     @Override
     public String toString() {
+
         StringBuilder string = new StringBuilder();
         string.append("Drink:").append(" ");
+        string.append(super.toString());
         if (type != null) {
             string.append(this.type).append(" ");
-        }
-        if (newName != null) {
-            string.append(this.newName).append(",").append(" ");
-        }
-        if (newCost != 0) {
-            string.append(this.newCost).append("р.").append(" ");
         }
         string.append("Alcholol:");
         if (alcoholVol != 0) {
             string.append(this.alcoholVol).append("%.");
         }
-        if (newDescription != null) {
-            string.append(this.newDescription);
+        if (super.description != null) {
+            string.append(this.description);
         }
         return string.toString();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null) {
-            return false;
-        }
 
-        if(!(getClass() == obj.getClass()))
-            return false;
-        else
-        {
-            Drink comparison = (Drink) obj;
-            return comparison.equals(newName) &&
-                    comparison.equals(newDescription) &&
-                    comparison.newCost == this.newCost &&
+            return super.equals(obj) &&
+                    ((Drink) obj).equals(super.description) &&
                     comparison.alcoholVol == this.alcoholVol &&
                     comparison.type == this.type;
-        }
     }
 
     @Override
+    //todo equals toString() вызывай реализацию из суперкласса и добавляй к ним особенности этого класса
     public int hashCode() {
-        return newName.hashCode()^newDescription.hashCode()^newCost^type.hashCode();
+        return super.hashCode()^type.hashCode()^alcoholVol+++;
     }
 }

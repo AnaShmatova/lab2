@@ -152,6 +152,7 @@ public class InternetOrder implements Order {
         return string.toString();
     }
 
+    //todo исправить насчет equals, написать проверку на каждый лемент (fori)
     @Override
     public boolean equals(Object obj) {
         if(obj == null) {

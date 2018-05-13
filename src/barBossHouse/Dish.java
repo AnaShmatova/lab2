@@ -16,12 +16,7 @@ public class Dish extends MenuItem {
     public String toString() {
         StringBuilder string = new StringBuilder();
         string.append("Dish:").append(" ");
-        if(getName() != null) {
-            string.append(this.getName()).append(",");
-        }
-        if(getCost() != 0) {
-            string.append(this.getCost()).append("р.").append(" ");
-        }
+        super.toString();
         if (getDescription() != null) {
             string.append(this.getDescription());
         }
@@ -39,14 +34,9 @@ public class Dish extends MenuItem {
         else
         {
             Dish comparison = (Dish) obj;
-            return comparison.equals(getName()) &&
-                    comparison.equals(getDescription()) &&
-                    comparison.getCost() == this.getCost();
+            return super.equals((Object) obj) &&
+                    comparison.equals(getDescription());
         }
     }
-
-    @Override
-    public int hashCode() {
-        return getName().hashCode()^getDescription().hashCode()^getCost();
-    }
+    //todo equals toString() вызывайреализацию изсуперкласса идобавляй кним особенностиэтого класса
 }
