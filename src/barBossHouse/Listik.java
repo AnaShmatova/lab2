@@ -39,6 +39,8 @@ public class Listik<T> {
             x = y;
         }
         y.next = new Node(item);
+        this.tail=y.next;
+        y.next.prev=y;
         size++;
     }
 
@@ -50,6 +52,8 @@ public class Listik<T> {
             x = y;
         }
         x.next = x.next.next;
+        x.next.prev=x;
+        size--;
     }
 
 }
