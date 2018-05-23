@@ -60,15 +60,13 @@ public class TableOrder implements Order {
         }
         return count;
     }
-//todo возвращай копию массива
-    //сделала
+
     public MenuItem[] getItems() {
         MenuItem[] copyItems = new MenuItem[size];
         System.arraycopy(items, 0, copyItems, 0, size);
         return copyItems;
     }
 
-//correct
     public boolean add(MenuItem dish) {
         if (size == items.length) {
             MenuItem[] arr = new MenuItem[items.length * 2];
@@ -79,7 +77,7 @@ public class TableOrder implements Order {
         size++;
         return true;
     }
-//correct
+
     public boolean remove(String nameDish) {
         for (int i = 0; i < size; i++) {
             if (items[i].getName().equals(nameDish)) {
@@ -211,10 +209,10 @@ public class TableOrder implements Order {
     @Override
     public MenuItem[] sortedItemsByCostDesc() {
         MenuItem count = null;
-        MenuItem[] arr = new MenuItem[size];
-        //todo arraycopy
+        MenuItem[] arr = getDishes(); //todo вот так надо было делать
+        /*MenuItem[] arr = new MenuItem[size];
         //сделала
-        System.arraycopy(arr, 0, items, 0, size);
+        System.arraycopy(arr, 0, items, 0, size); */
         for (int k = 0; k < size-1 ; k++) {
             for (int j = k+1; j < size; j++) {
                 if (arr[k].getCost()>arr[j].getCost()) {
@@ -296,8 +294,10 @@ public class TableOrder implements Order {
         else
         {
             TableOrder comparison = (TableOrder) obj;
+            //todo С каких это пор содержимое объектов оператором == сравнивается???
             if (comparison.customer == this.customer && comparison.size == this.size)
             for (int i = 0; i < items.length; i++) {
+                //todo почему это исключающее или?!?! объекты равны, если равны ВСЕ их блюда одновременно
                condition ^= comparison.items[i].equals(this.items[i]);
             }
         }
@@ -306,6 +306,7 @@ public class TableOrder implements Order {
 
     @Override
     public int hashCode() {
+        //todo hashCode() массива левый. Нужно в цикле пробегаться по элементам и использовать их хэшкоды
         return customer.hashCode()^size^items.hashCode();
     }
 

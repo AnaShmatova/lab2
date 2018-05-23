@@ -14,9 +14,10 @@ public class Listik<T> {
     }
 
 
-
+//TODO Везде в локальных переменных во всех методах этого класса  надо Node<T> использовать тип, а не Node. Тогда и кастовать к Т не придется
     public T get(int index) {
-        Node y;
+        //Node y; //БЫЛО
+        Node<T> y; //А надо так
         Node x = head; //указывает, что это первый элемент
         for (int i = 0; i < index; i++) {
             y = x.next; //ссылка следующего элемента
@@ -34,6 +35,7 @@ public class Listik<T> {
             size++;
             return;
         }
+        //todo а зачем тебе этот цикл, если у тебя tail есть?!?!?!?!
         for (int i = 0; i < size; i++) {
             y = x.next;
             x = y;

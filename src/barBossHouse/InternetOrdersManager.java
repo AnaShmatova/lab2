@@ -36,9 +36,9 @@ public class InternetOrdersManager implements OrdersManager {
     }
 
     public Order[] getArrayQueue() {
-        MenuItem[] arr = new MenuItem[listochek.size];
+        Order[] arr = new Order[listochek.size];
         for (int i = 0; i < listochek.size ; i++) {
-            arr[i] = (MenuItem) listochek.get(i);
+            arr[i] = listochek.get(i);
         }
         return (Order[]) arr;
     }
@@ -47,23 +47,26 @@ public class InternetOrdersManager implements OrdersManager {
         Order[] orders = this.getArrayQueue();
         int cost = 0;
         for (int i = 0; i < listochek.size; i++) {
-            cost += ((Order)listochek.get(i)).costTotal();
+            cost += (listochek.get(i)).costTotal();
         }
         return cost;
     }
 
+    //todo мне кажется здесь не Quality в имени
     public int getQualityOrder(String name) {
         int count = 0;
         for (int i = 0; i < listochek.size; i++) {
-            count += ((Order)listochek.get(i)).itemQuantity(name);
+            count += (listochek.get(i)).itemQuantity(name);
         }
         return count;
     }
 
+    //todo мне кажется здесь не Quality в имени
+
     public int getQualityOrder(MenuItem item) {
         int count = 0;
         for (int i = 0; i < listochek.size; i++) {
-            count += ((Order)listochek.get(i)).itemQuantity(item);
+            count += (listochek.get(i)).itemQuantity(item);
         }
         return count;
     }
@@ -95,7 +98,7 @@ public class InternetOrdersManager implements OrdersManager {
     public int itemsQuantity(String itemName) {
         int count = 0;
         for (int i = 0; i < listochek.size; i++) {
-            count += ((Order)listochek.get(i)).itemQuantity(itemName);
+            count += listochek.get(i).itemQuantity(itemName);
         }
         return count;
     }

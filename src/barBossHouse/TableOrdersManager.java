@@ -24,21 +24,17 @@ public class TableOrdersManager implements OrdersManager {
     public void removeOrder(int tableNumber) {
         orders[tableNumber - 1] = null;
     }
-    //TODO: 2.05 добавь get к имени
+
     public int getFreeTableNumber() {
         for (int i = 0; i < orders.length; i++) {
-            //TODO: 2.05 этот if будет всегда возвращать false
-            //так?
             if (orders[i] == null) {
-                return i + 1;
+                return i;
             }
         }
         return -1;
     }
 
-    //todo: И мы переписываем эти два метода ниже на использование предиката или паттерна Стратегия. Чтобы не допустить
-    //todo: дублирования кода.
-    //сделала
+
     private int[] tableNumbers(Predicate<Order> isP) {
         int j = 0;
         int[] numberFreeTables = new int[orders.length];
@@ -50,19 +46,20 @@ public class TableOrdersManager implements OrdersManager {
         }
         return numberFreeTables;
     }
-    //TODO: 2.05 ужос имена
-    //Это не я так называла)) а Михаил Александрович ))
-    public int[] predicateNoFreeTableNumbers(Predicate<Order> isP1) {
+
+    //todo поправил - эти 2 метода не должны принимать параметры
+    //todo и я их так явно не называл, переименовал первый метод - лучше теперь звучит, второй переименуй сама
+    public int[] noFreeTableNumbers() {
         return tableNumbers(new NotIsNullPredicate());
     }
 
-    public int[] predicateFreeTableNumbers(Predicate<Order> isP1) {
+    public int[] predicateFreeTableNumbers() {
         return tableNumbers(new IsNullPredicate());
     }
 
     public TableOrder[] getOrders() {
 
-        int[] table = predicateFreeTableNumbers(new NotIsNullPredicate());
+        int[] table = predicateFreeTableNumbers();
         TableOrder[] atTheMomentOrders = new TableOrder[table.length];
         for (int i = 0; i < table.length; i++) {
             atTheMomentOrders[i] = (TableOrder) orders[table[i]];
@@ -82,7 +79,7 @@ public class TableOrdersManager implements OrdersManager {
     public int itemsQuantity(String itemName) {
         int count = 0;
         for (int i = 0; i < orders.length; i++) {
-            if (orders[i].equals(itemName)) {
+            if (orders[i].equals(itemName)) {  //todo аналогичная Customer и Address ошибка сравнения ты должна сравнивать имя блюда, а не само блюдо
                 count++;
             }
         }
@@ -105,6 +102,7 @@ public class TableOrdersManager implements OrdersManager {
         return orders.length;
     }
 
+    //todo ты здесь должна item добавлять к заказу с заданным номерам, а ты делаешь какую-то фигню
     public int addItem(MenuItem item, int tableNumber) {
         int sum = 0;
         for (int i = 0; i < tableNumber; i++) {
@@ -121,6 +119,7 @@ public class TableOrdersManager implements OrdersManager {
 
             if (orders[i].equals(order)) {
                 orders[i] = null;
+                //todo просто ордер делаем null, сдвигать массив в ЭТОМ КЛАССЕ НЕ НАДО!
                 count++;
                 System.arraycopy(orders, i + 1, orders, i, orders.length - i);
                 return i;
@@ -135,6 +134,8 @@ public class TableOrdersManager implements OrdersManager {
 
             if (orders[i].equals(order)) {
                 orders[i] = null;
+                //todo просто ордер делаем null, сдвигать массив в ЭТОМ КЛАССЕ НЕ НАДО!
+
                 count++;
                 System.arraycopy(orders, i + 1, orders, i, orders.length - i);
             }
