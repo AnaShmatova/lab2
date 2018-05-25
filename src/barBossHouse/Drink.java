@@ -61,7 +61,9 @@ public class Drink extends MenuItem implements Alcoholable {
     @Override
     public boolean equals(Object obj) {
             return super.equals(obj) &&
-                    ((Drink) obj).equals(super.description) && //todo аналогичная Customer и Address ошибка сравнения ты должна сравнивать атрибуты description объектов this и obj
+                    ((Drink) obj).description.equals(super.description) &&
+                    //todo аналогичная Customer и Address ошибка сравнения ты должна сравнивать атрибуты description объектов this и obj
+                    //сделала
                     ((Drink) obj).alcoholVol == this.alcoholVol &&
                     ((Drink) obj).type == this.type;
     }

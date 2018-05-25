@@ -13,8 +13,16 @@ public class Listik<T> {
         this.size = 0;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Listik
+        if (this.size == )
+        for (int i = 0; i < ; i++) {
 
-//TODO Везде в локальных переменных во всех методах этого класса  надо Node<T> использовать тип, а не Node. Тогда и кастовать к Т не придется
+        }
+    }
+
+    //TODO Везде в локальных переменных во всех методах этого класса  надо Node<T> использовать тип, а не Node. Тогда и кастовать к Т не придется
     public T get(int index) {
         //Node y; //БЫЛО
         Node<T> y; //А надо так

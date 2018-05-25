@@ -16,7 +16,8 @@ public class Dish extends MenuItem {
     public String toString() {
         StringBuilder string = new StringBuilder();
         string.append("Dish:").append(" ");
-        super.toString();//todo а получаемую от super.toString() кто в билдер апендить будет?
+        string.append(super.toString()); //todo а получаемую от super.toString() кто в билдер апендить будет?
+        //сделала
         if (getDescription() != null) {
             string.append(this.getDescription());
         }
@@ -26,9 +27,7 @@ public class Dish extends MenuItem {
     @Override
     public boolean equals(Object obj) {
         //todo в super.equals(obj) уже есть проеврка на null и сравнение типов, не нужно это здесь делать
-        if(obj == null) {
-            return false;
-        }
+        //сделала
 
         if(!(getClass() == obj.getClass()))
             return false;
@@ -36,7 +35,10 @@ public class Dish extends MenuItem {
         {
             Dish comparison = (Dish) obj;
             return super.equals(obj) &&
-                    comparison.equals(getDescription()); //todo аналогичная Customer и Address ошибка сравнения ты должна сравнивать атрибуты description объектов this и obj
+                    comparison.getDescription().equals(getDescription()) &&
+                    super.equals(obj);
+            //todo аналогичная Customer и Address ошибка сравнения ты должна сравнивать атрибуты description объектов this и obj
+            //сделала
         }
     }
 }

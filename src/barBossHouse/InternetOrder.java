@@ -117,11 +117,10 @@ public class InternetOrder implements Order {
 
     public MenuItem[] sortedItemsByCostDesc() {
         //todo у тебя есть метод getItems(), который делает копию массива, вызывай его, не надо дублировать код
+        //сделала
         MenuItem count = null;
-        MenuItem[] arr = new MenuItem[listochek.size];
-        for (int i = 0; i < listochek.size; i++) {
-            arr[i] = listochek.get(i);
-        }
+        MenuItem[] arr = getItems();
+
         for (int k = 0; k < listochek.size-1 ; k++) {
             for (int j = k+1; j < listochek.size; j++) {
                 if (arr[k].getCost()>arr[j].getCost()) {
@@ -168,8 +167,10 @@ public class InternetOrder implements Order {
         {
             InternetOrder comparison = (InternetOrder) obj;
             //todo С каких это пор содержимое объектов оператором == сравнивается???
-            return comparison.customer == this.customer &&
-                    comparison.listochek == this.listochek; //todo где цикл на сравнение ээлементов списка? в предыдущей todoшке было же
+            //сделала
+            return comparison.customer.equals(customer) &&
+                    comparison.listochek == this.listochek;
+            //todo где цикл на сравнение ээлементов списка? в предыдущей todoшке было же
         }
     }
 
