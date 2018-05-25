@@ -32,14 +32,15 @@ public abstract class MenuItem {
 
     @Override
     public String toString() {
-        StringBuilder string = new StringBuilder();
+        return String.format("%s, %dp.", name, cost);
+       /* StringBuilder string = new StringBuilder();
         if (name != null) {
             string.append(this.name).append(",").append(" ");
         }
         if (cost != 0) {
             string.append(this.cost).append("р.");
         }
-        return string.toString();
+        return string.toString();*/
     }
 
     @Override

@@ -57,7 +57,8 @@ public final class Address {
 
     @Override
     public String toString() {
-        StringBuilder string = new StringBuilder();
+        return String.format("Address: %s %d, %s %d%c - %d", cityName, zipCode, streetName, buildingNumber, buildingLetter, apartmentNumber);
+       /* StringBuilder string = new StringBuilder();
         string.append("Address:").append(" ");
         if(cityName != null) {
             string.append(this.cityName).append(" ");
@@ -77,7 +78,7 @@ public final class Address {
         if (apartmentNumber != -1 | apartmentNumber != 0) {
             string.append(this.apartmentNumber);
         }
-        return string.toString();
+        return string.toString();*/
     }
 
     public boolean equals(Object obj) {

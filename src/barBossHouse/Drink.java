@@ -41,8 +41,8 @@ public class Drink extends MenuItem implements Alcoholable {
 
     @Override
     public String toString() {
-
-        StringBuilder string = new StringBuilder();
+        return String.format("Drink: %s %s, %dp. Alcholol: %d%. %s", type, getName(), getCost(), alcoholVol, description);
+       /* StringBuilder string = new StringBuilder();
         string.append("Drink:").append(" ");
         string.append(super.toString());
         if (type != null) {
@@ -55,7 +55,7 @@ public class Drink extends MenuItem implements Alcoholable {
         if (super.description != null) {
             string.append(this.description);
         }
-        return string.toString();
+        return string.toString();*/
     }
 
     @Override

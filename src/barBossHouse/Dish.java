@@ -14,14 +14,15 @@ public class Dish extends MenuItem {
 
     @Override
     public String toString() {
-        StringBuilder string = new StringBuilder();
+        return String.format("Dish: %s, %dр. %s", getName(), getCost(), description);
+        /*StringBuilder string = new StringBuilder();
         string.append("Dish:").append(" ");
         string.append(super.toString()); //todo а получаемую от super.toString() кто в билдер апендить будет?
         //сделала
         if (getDescription() != null) {
             string.append(this.getDescription());
         }
-        return string.toString();
+        return string.toString();*/
     }
 
     @Override

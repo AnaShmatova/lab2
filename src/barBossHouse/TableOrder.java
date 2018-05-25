@@ -1,5 +1,7 @@
 package barBossHouse;
 
+import java.time.LocalDateTime;
+
 //todo дублирующиеся методы удали
 //сделала
 public class TableOrder implements Order {
@@ -7,23 +9,26 @@ public class TableOrder implements Order {
     private int size;
     private MenuItem[] items;
     private Customer customer;
+    private LocalDateTime timeOfOrder;
 
     public TableOrder() {
         items = new MenuItem[16];
         size = 0;
+        this.timeOfOrder = LocalDateTime.now();
     }
 
     public TableOrder(int newSize, Customer customer) {
         size = 0;
         items = new MenuItem[newSize];
         this.customer = customer;
+        this.timeOfOrder = LocalDateTime.now();
     }
 
     public TableOrder(MenuItem[] newDishes, Customer customer) {
         items = newDishes;
         size = items.length;
         this.customer = customer;
-
+        this.timeOfOrder = LocalDateTime.now();
     }
 
     public Customer getCustomer() {
@@ -35,6 +40,15 @@ public class TableOrder implements Order {
         this.customer = customer;
     }
 
+    @Override
+    public LocalDateTime setDateOfOrder(LocalDateTime timeOfOrder) {
+        return this.timeOfOrder = timeOfOrder;
+    }
+
+    @Override
+    public LocalDateTime getDateOfOrder() {
+        return timeOfOrder;
+    }
 
     public boolean removeItemFromAnOrder(MenuItem item){
         for (int i = 0; i < size; i++) {

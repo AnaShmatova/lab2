@@ -1,32 +1,35 @@
 package barBossHouse;
 
+import java.time.LocalDate;
+
 public final class Customer {
 
     private final String firstName;
     private final String secondName;
-    private final int age;
+    private final LocalDate birthDate;
     private final Address address;
 
     public static final Customer MATURE_UNKNOWN_CUSTOMER = new Customer(21);
     public static final Customer NOT_MATURE_UNKNOWN_CUSTOMER = new Customer(14);
 
     public Customer(){
-        this(null, null, 0, Address.EMPTY_ADDRESS);
+        this(null, null, null, Address.EMPTY_ADDRESS);
     }
 
     public Customer(int age){
-        this(null, null, 0, Address.EMPTY_ADDRESS);
+        this(null, null, null, Address.EMPTY_ADDRESS);
     }
 
-    public Customer(String firstName, String secondName, int age, Address address) {
+    public Customer(String firstName, String secondName, LocalDate birthDate, Address address) {
         this.firstName = firstName;
         this.secondName = secondName;
-        this.age = age;
+        this.birthDate = birthDate;
         this.address = address;
     }
 
     public int getAge() {
-        return age;
+        LocalDate now = LocalDate.now();
+        return now.getYear() - birthDate.getYear();
     }
 
     public String getFirstName() {
@@ -51,8 +54,8 @@ public final class Customer {
         if (firstName != null) {
             string.append(this.firstName).append(",").append(" ");
         }
-        if (age != 0 | age != -1) {
-            string.append(this.age).append(",").append(" ");
+        if (birthDate != null) {
+            string.append(this.birthDate).append(",").append(" ");
         }
         if (address != null | address.getBuildingNumber() != -1) {
             string.append(this.address);
@@ -76,13 +79,13 @@ public final class Customer {
 
                     //сделала
                     comparison.equals(this.firstName) &&
-                    comparison.age == this.age &&
+                    comparison.birthDate == this.birthDate &&
                     comparison.address == this.address;
         }
     }
 
     @Override
     public int hashCode() {
-        return secondName.hashCode()^firstName.hashCode()^age^address.hashCode();
+        return secondName.hashCode()^firstName.hashCode()^birthDate.hashCode()^address.hashCode();
     }
 }

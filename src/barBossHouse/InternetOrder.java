@@ -1,13 +1,17 @@
 package barBossHouse;
 
 
+import java.time.LocalDateTime;
+
 public class InternetOrder implements Order {
 
     private Listik<MenuItem> listochek;
     private Customer customer;
+    private LocalDateTime timeOfOrder;
 
     public InternetOrder() {
         this.listochek = new Listik<MenuItem>();
+        this.timeOfOrder = LocalDateTime.now();
     }
 
     public InternetOrder(MenuItem[] items, Customer customer){
@@ -15,6 +19,7 @@ public class InternetOrder implements Order {
             listochek.add(items[i]);
         }
         this.customer = customer;
+        this.timeOfOrder = LocalDateTime.now();
     }
 
     public boolean add (MenuItem item) {
@@ -142,6 +147,15 @@ public class InternetOrder implements Order {
         this.customer = customer;
     }
 
+    @Override
+    public LocalDateTime setDateOfOrder(LocalDateTime timeOfOrder) {
+        return this.timeOfOrder = timeOfOrder;
+    }
+
+    @Override
+    public LocalDateTime getDateOfOrder() {
+        return timeOfOrder;
+    }
 
     @Override
     public String toString() {

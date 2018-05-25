@@ -1,5 +1,7 @@
 package barBossHouse;
 
+import java.time.LocalDateTime;
+
 public interface Order {
 
 
@@ -18,5 +20,6 @@ public interface Order {
     Customer getCustomer();
     void setCustomer(Customer customer);
 
-
+    LocalDateTime setDateOfOrder(LocalDateTime timeOfOrder);
+    LocalDateTime getDateOfOrder();
 }
