@@ -295,10 +295,10 @@ public class TableOrder implements Order {
         {
             TableOrder comparison = (TableOrder) obj;
             //todo С каких это пор содержимое объектов оператором == сравнивается???
-            if (comparison.customer == this.customer && comparison.size == this.size)
+            if (comparison.customer.equals(this.customer) && comparison.size == this.size)
             for (int i = 0; i < items.length; i++) {
                 //todo почему это исключающее или?!?! объекты равны, если равны ВСЕ их блюда одновременно
-               condition ^= comparison.items[i].equals(this.items[i]);
+               condition &= comparison.items[i].equals(this.items[i]);
             }
         }
         return condition;
@@ -307,7 +307,12 @@ public class TableOrder implements Order {
     @Override
     public int hashCode() {
         //todo hashCode() массива левый. Нужно в цикле пробегаться по элементам и использовать их хэшкоды
-        return customer.hashCode()^size^items.hashCode();
+       int a = customer.hashCode()^size;
+
+        for (int i = 0; i <items.length ; i++) {
+            a^=items[i].hashCode();
+        }
+        return a;
     }
 
 }

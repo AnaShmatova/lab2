@@ -15,11 +15,18 @@ public class Listik<T> {
 
     @Override
     public boolean equals(Object obj) {
-        Listik
-        if (this.size == )
-        for (int i = 0; i < ; i++) {
+        Listik listik = (Listik) obj;
+        boolean a =true;
 
+        if (this.size == listik.size)
+        for (int i = 0; i < this.size; i++) {
+
+            a&=listik.get(i).equals(this.get(i));
         }
+        else
+            return false;
+
+        return a;
     }
 
     //TODO Везде в локальных переменных во всех методах этого класса  надо Node<T> использовать тип, а не Node. Тогда и кастовать к Т не придется
@@ -44,13 +51,7 @@ public class Listik<T> {
             return;
         }
         //todo а зачем тебе этот цикл, если у тебя tail есть?!?!?!?!
-        for (int i = 0; i < size; i++) {
-            y = x.next;
-            x = y;
-        }
-        y.next = new Node(item);
-        this.tail=y.next;
-        y.next.prev=y;
+        tail.next = new Node<T>(item);
         size++;
     }
 
@@ -65,5 +66,6 @@ public class Listik<T> {
         x.next.prev=x;
         size--;
     }
+
 
 }

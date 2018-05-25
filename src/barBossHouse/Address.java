@@ -90,9 +90,9 @@ public final class Address {
         else
         {
             Address comparison = (Address) obj;
-            return comparison.cityName.equals(cityName) && //todo ты сравниваешь экземпляр класса Address с атрибутом - название города (строка),
+            return comparison.cityName.equals(this.cityName) && //todo ты сравниваешь экземпляр класса Address с атрибутом - название города (строка),
                     //А нужно сравнивать атрибут cityName этого экземпляра c твоим атрибутом cityName
-                    comparison.streetName.equals(streetName) && //todo  аналогично
+                    comparison.streetName.equals(this.streetName) && //todo  аналогично
 
                     //сделала
                     comparison.zipCode == this.zipCode &&

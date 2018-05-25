@@ -169,14 +169,19 @@ public class InternetOrder implements Order {
             //todo С каких это пор содержимое объектов оператором == сравнивается???
             //сделала
             return comparison.customer.equals(customer) &&
-                    comparison.listochek == this.listochek;
+                    comparison.listochek.equals(this.listochek);
             //todo где цикл на сравнение ээлементов списка? в предыдущей todoшке было же
         }
     }
 
     @Override
     public int hashCode() {
-        return customer.hashCode();
+       int a = customer.hashCode();
+
+        for (int i = 0; i <this.listochek.size ; i++) {
+            a^=listochek.get(i).hashCode();
+        }
+        return a;
         //todo А где хэшкоды всей айтемов?
     }
 }

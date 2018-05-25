@@ -12,4 +12,19 @@ public class Node <T> {
         this.value=value;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if(obj.getClass()!=(new Node(null)).getClass())
+            return false;
+
+        Node node = (Node)obj;
+
+
+
+        if(this.value == node.value)
+            return true;
+
+        return false;
+    }
 }

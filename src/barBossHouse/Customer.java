@@ -71,11 +71,11 @@ public final class Customer {
         else
         {
             Customer comparison = (Customer) obj;
-            return comparison.secondName.equals(secondName) && //todo ты сравниваешь экземпляр класса Customer с атрибутом - secondName,
+            return comparison.secondName.equals(this.secondName) && //todo ты сравниваешь экземпляр класса Customer с атрибутом - secondName,
                 //А нужно сравнивать атрибут secondName этого экземпляра c твоим атрибутом secondName
 
                     //сделала
-                    comparison.equals(firstName) &&
+                    comparison.equals(this.firstName) &&
                     comparison.age == this.age &&
                     comparison.address == this.address;
         }

@@ -53,13 +53,13 @@ public class TableOrdersManager implements OrdersManager {
         return tableNumbers(new NotIsNullPredicate());
     }
 
-    public int[] predicateFreeTableNumbers() {
+    public int[] freeTableNumbers() {
         return tableNumbers(new IsNullPredicate());
     }
 
     public TableOrder[] getOrders() {
 
-        int[] table = predicateFreeTableNumbers();
+        int[] table = freeTableNumbers();
         TableOrder[] atTheMomentOrders = new TableOrder[table.length];
         for (int i = 0; i < table.length; i++) {
             atTheMomentOrders[i] = (TableOrder) orders[table[i]];
@@ -78,9 +78,13 @@ public class TableOrdersManager implements OrdersManager {
     @Override
     public int itemsQuantity(String itemName) {
         int count = 0;
+        String[] mass;
         for (int i = 0; i < orders.length; i++) {
-            if (orders[i].equals(itemName)) {  //todo аналогичная Customer и Address ошибка сравнения ты должна сравнивать имя блюда, а не само блюдо
-                count++;
+
+            mass=orders[i].itemsNames();
+            for (int j = 0; j <mass.length ; j++) {
+                if(mass[i].equals(itemName))
+                    count++;
             }
         }
         return count;
@@ -121,7 +125,7 @@ public class TableOrdersManager implements OrdersManager {
                 orders[i] = null;
                 //todo просто ордер делаем null, сдвигать массив в ЭТОМ КЛАССЕ НЕ НАДО!
                 count++;
-                System.arraycopy(orders, i + 1, orders, i, orders.length - i);
+
                 return i;
             }
         }
@@ -137,7 +141,7 @@ public class TableOrdersManager implements OrdersManager {
                 //todo просто ордер делаем null, сдвигать массив в ЭТОМ КЛАССЕ НЕ НАДО!
 
                 count++;
-                System.arraycopy(orders, i + 1, orders, i, orders.length - i);
+
             }
         }
         if (count > 0)

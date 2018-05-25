@@ -52,24 +52,7 @@ public class InternetOrdersManager implements OrdersManager {
         return cost;
     }
 
-    //todo мне кажется здесь не Quality в имени
-    public int getQualityOrder(String name) {
-        int count = 0;
-        for (int i = 0; i < listochek.size; i++) {
-            count += (listochek.get(i)).itemQuantity(name);
-        }
-        return count;
-    }
 
-    //todo мне кажется здесь не Quality в имени
-
-    public int getQualityOrder(MenuItem item) {
-        int count = 0;
-        for (int i = 0; i < listochek.size; i++) {
-            count += (listochek.get(i)).itemQuantity(item);
-        }
-        return count;
-    }
 
     @Override
     public int ordersQuantity() {
