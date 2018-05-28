@@ -23,6 +23,13 @@ public class InternetOrder implements Order {
     }
 
     public boolean add (MenuItem item) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        if (now.getHour() > 22 || now.getHour() < 8 ) {
+            throw new UnlawfulActionException("Time of sale of alcohol left");
+        }
+
         listochek.add(item);
         return true;
     }

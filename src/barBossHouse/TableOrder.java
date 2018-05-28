@@ -18,6 +18,10 @@ public class TableOrder implements Order {
     }
 
     public TableOrder(int newSize, Customer customer) {
+
+        if (newSize < 0)
+            throw new NegativeSizeException("Number of elements is negative");
+
         size = 0;
         items = new MenuItem[newSize];
         this.customer = customer;
@@ -82,11 +86,16 @@ public class TableOrder implements Order {
     }
 
     public boolean add(MenuItem dish) {
+        LocalDateTime now = LocalDateTime.now();
         if (size == items.length) {
             MenuItem[] arr = new MenuItem[items.length * 2];
             System.arraycopy(items, 0, arr, items.length, items.length);
             items = arr;
         }
+
+        if (dish.getClass().getName().equals(Drink.class.getName()))
+            if (now.getHour() > 22 && now.getHour() < 8 && now.getHour() > 0)
+                throw new UnlawfulActionException("Time of sale of alcohol left");
         items[size] = dish;
         size++;
         return true;

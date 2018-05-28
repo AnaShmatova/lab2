@@ -18,7 +18,13 @@ public class Drink extends MenuItem implements Alcoholable {
     }
 
     public Drink(int cost, String name, DrinkTypeEnum type, String description, double alcoholVol){
+
         super(cost, name, description);
+
+        if (alcoholVol < 0 | alcoholVol > 100)
+            throw new IllegalArgumentException();
+
+
         this.type = type;
         this.alcoholVol = alcoholVol;
     }

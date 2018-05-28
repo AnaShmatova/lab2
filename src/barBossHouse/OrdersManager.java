@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public interface OrdersManager {
 
     int ordersQuantity();
-    Order[] getOrders();
+    Order[] getOrders() throws NoFreeTableException;
     double ordersCostSummary();
     int itemsQuantity(String itemName);
     int itemsQuantity(MenuItem item);

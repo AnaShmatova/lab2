@@ -21,6 +21,12 @@ public final class Customer {
     }
 
     public Customer(String firstName, String secondName, LocalDate birthDate, Address address) {
+
+        LocalDate now = LocalDate.now();
+
+        if (now.getYear() < birthDate.getYear() | (now.getYear() == birthDate.getYear() & now.getMonthValue() < birthDate.getMonthValue()) | ((now.getYear() == birthDate.getYear() & now.getMonthValue() == birthDate.getMonthValue() & now.getDayOfMonth() < birthDate.getDayOfMonth())))
+            throw new IllegalArgumentException();
+
         this.firstName = firstName;
         this.secondName = secondName;
         this.birthDate = birthDate;

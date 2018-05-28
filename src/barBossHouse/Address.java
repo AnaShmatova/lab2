@@ -21,6 +21,10 @@ public final class Address {
     }
 
     public Address(String cityName, String streetName, int zipCode, int buildingNumber, char buildingLetter, int apartmentNumber) {
+
+        if (zipCode < 0 | buildingNumber < 0 | apartmentNumber < 0 | Character.isLetter(buildingLetter))
+            throw new IllegalArgumentException();
+
         this.cityName = cityName;
         this.streetName = streetName;
         this.zipCode = zipCode;

@@ -13,6 +13,9 @@ public abstract class MenuItem {
 
     protected MenuItem(int cost, String name, String description) {
         //сделала
+        if (cost < 0)
+            throw new IllegalArgumentException();
+
         this.name = name;
         this.description = description;
         this.cost = cost;

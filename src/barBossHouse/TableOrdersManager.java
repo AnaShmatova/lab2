@@ -1,18 +1,34 @@
 package barBossHouse;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 //todo: все ранние замечания справедливы для этого класса тоже.
 //todo: буду ставить пустые //todo:
+
+
 public class TableOrdersManager implements OrdersManager {
     private Order[] orders;
     private Order interfes;
 
     public TableOrdersManager(int newTableNumber) {
+        if (newTableNumber < 0)
+            throw new NegativeSizeException("Number of elements is negative");
+
         orders = new TableOrder[newTableNumber];
     }
 
-    public void add(TableOrder order, int tableNumber) {
+    public void add(TableOrder order, int tableNumber) throws AlreadyAddedException {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        if (now.getHour() > 22 | now.getHour() > 0 && now.getHour() < 8 | now.getYear()-order.getDateOfOrder().getYear()<18)
+            throw new UnlawfulActionException("Time of sale of alcohol left");
+
+        if (orders[tableNumber] != null)
+            throw new AlreadyAddedException("The order has already been added");
+
         orders[tableNumber - 1] = order;
     }
 
@@ -53,11 +69,18 @@ public class TableOrdersManager implements OrdersManager {
         return tableNumbers(new NotIsNullPredicate());
     }
 
-    public int[] freeTableNumbers() {
-        return tableNumbers(new IsNullPredicate());
+    public int[] freeTableNumbers() throws NoFreeTableException {
+
+        int[] arr =  tableNumbers(new IsNullPredicate());;
+        if (arr.length==0)
+            throw new NoFreeTableException("There are no available tables");
+
+        return  arr;
+
+
     }
 
-    public TableOrder[] getOrders() {
+    public TableOrder[] getOrders() throws NoFreeTableException {
 
         int[] table = freeTableNumbers();
         TableOrder[] atTheMomentOrders = new TableOrder[table.length];
@@ -99,6 +122,21 @@ public class TableOrdersManager implements OrdersManager {
             }
         }
         return count;
+    }
+
+    @Override
+    public int getNumberOrder(LocalDate numberOrderOfDay) {
+        return 0;
+    }
+
+    @Override
+    public Listik getListOrder(LocalDate listOrderOfDay) {
+        return null;
+    }
+
+    @Override
+    public Listik getListOrderOfCustomer(Customer customer) {
+        return null;
     }
 
 

@@ -2,6 +2,9 @@ package barBossHouse;
 
 import com.sun.org.apache.xpath.internal.operations.Or;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class InternetOrdersManager implements OrdersManager {
 
     private Listik<Order> listochek;
@@ -11,12 +14,29 @@ public class InternetOrdersManager implements OrdersManager {
     }
 
     public InternetOrdersManager(Order[] orders) {
+
+        LocalDateTime now = LocalDateTime.now();
+
         for (int i = 0; i < orders.length; i++) {
+            if (now.getHour() > 22 | now.getHour() > 0 && now.getHour() < 8 | now.getYear()-orders[i].getDateOfOrder().getYear()<18)
+            throw new UnlawfulActionException("Time of sale of alcohol left");
+
             listochek.add(orders[i]);
+
         }
     }
 
-    public boolean add(Order order) {
+    public boolean add(Order order) throws AlreadyAddedException {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        if (now.getHour() > 22 | now.getHour() > 0 && now.getHour() < 8)
+            throw new UnlawfulActionException("Time of sale of alcohol left");
+
+        for (int i = 0; i < listochek.size; i++) {
+            if (((Order) listochek.get(i)).getCustomer().equals(order.getCustomer()) & ((Order) listochek.get(i)).getDateOfOrder().equals(order.getDateOfOrder()))
+                throw new AlreadyAddedException("The order has already been added");
+        }
         listochek.add(order);
         return true;
     }
@@ -95,5 +115,20 @@ public class InternetOrdersManager implements OrdersManager {
             }
         }
         return count;
+    }
+
+    @Override
+    public int getNumberOrder(LocalDate numberOrderOfDay) {
+        return 0;
+    }
+
+    @Override
+    public Listik getListOrder(LocalDate listOrderOfDay) {
+        return null;
+    }
+
+    @Override
+    public Listik getListOrderOfCustomer(Customer customer) {
+        return null;
     }
 }
