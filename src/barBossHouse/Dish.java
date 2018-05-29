@@ -3,12 +3,11 @@ package barBossHouse;
 public class Dish extends MenuItem {
 
 
-
-    public Dish(int cost, String name, String description){
+    public Dish(int cost, String name, String description) {
         super(cost, name, description);
     }
 
-    public Dish (String newName, String newDescription) {
+    public Dish(String newName, String newDescription) {
         super(DEFAULT_COST, newName, newDescription);
     }
 
@@ -30,10 +29,9 @@ public class Dish extends MenuItem {
         //todo в super.equals(obj) уже есть проеврка на null и сравнение типов, не нужно это здесь делать
         //сделала
 
-        if(!(getClass() == obj.getClass()))
+        if (!(getClass() == obj.getClass()))
             return false;
-        else
-        {
+        else {
             Dish comparison = (Dish) obj;
             return super.equals(obj) &&
                     comparison.getDescription().equals(getDescription()) &&

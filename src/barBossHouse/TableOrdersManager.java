@@ -2,10 +2,8 @@ package barBossHouse;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.function.Predicate;
-
-//todo: все ранние замечания справедливы для этого класса тоже.
-//todo: буду ставить пустые //todo:
 
 
 public class TableOrdersManager implements OrdersManager {
@@ -23,7 +21,7 @@ public class TableOrdersManager implements OrdersManager {
 
         LocalDateTime now = LocalDateTime.now();
 
-        if (now.getHour() > 22 | now.getHour() > 0 && now.getHour() < 8 | now.getYear()-order.getDateOfOrder().getYear()<18)
+        if (now.getHour() > 22 | now.getHour() > 0 && now.getHour() < 8 | now.getYear() - order.getDateOfOrder().getYear() < 18)
             throw new UnlawfulActionException("Time of sale of alcohol left");
 
         if (orders[tableNumber] != null)
@@ -71,11 +69,12 @@ public class TableOrdersManager implements OrdersManager {
 
     public int[] freeTableNumbers() throws NoFreeTableException {
 
-        int[] arr =  tableNumbers(new IsNullPredicate());;
-        if (arr.length==0)
+        int[] arr = tableNumbers(new IsNullPredicate());
+        ;
+        if (arr.length == 0)
             throw new NoFreeTableException("There are no available tables");
 
-        return  arr;
+        return arr;
 
 
     }
@@ -104,9 +103,9 @@ public class TableOrdersManager implements OrdersManager {
         String[] mass;
         for (int i = 0; i < orders.length; i++) {
 
-            mass=orders[i].itemsNames();
-            for (int j = 0; j <mass.length ; j++) {
-                if(mass[i].equals(itemName))
+            mass = orders[i].itemsNames();
+            for (int j = 0; j < mass.length; j++) {
+                if (mass[i].equals(itemName))
                     count++;
             }
         }
@@ -117,16 +116,21 @@ public class TableOrdersManager implements OrdersManager {
     public int itemsQuantity(MenuItem item) {
         int count = 0;
         for (int i = 0; i < orders.length; i++) {
-            if (orders[i].equals(item)){
+            if (orders[i].equals(item)) {
                 count++;
             }
         }
         return count;
     }
 
+
     @Override
     public int getNumberOrder(LocalDate numberOrderOfDay) {
-        return 0;
+        int count = 0;
+        for (int i = 0; i < orders.length; i++) {
+            if(orders[i].)
+        }
+        return count;
     }
 
     @Override
@@ -144,7 +148,6 @@ public class TableOrdersManager implements OrdersManager {
         return orders.length;
     }
 
-    //todo ты здесь должна item добавлять к заказу с заданным номерам, а ты делаешь какую-то фигню
     public int addItem(MenuItem item, int tableNumber) {
         int sum = 0;
         for (int i = 0; i < tableNumber; i++) {
@@ -162,8 +165,8 @@ public class TableOrdersManager implements OrdersManager {
             if (orders[i].equals(order)) {
                 orders[i] = null;
                 //todo просто ордер делаем null, сдвигать массив в ЭТОМ КЛАССЕ НЕ НАДО!
+                //сделала
                 count++;
-
                 return i;
             }
         }
@@ -177,9 +180,8 @@ public class TableOrdersManager implements OrdersManager {
             if (orders[i].equals(order)) {
                 orders[i] = null;
                 //todo просто ордер делаем null, сдвигать массив в ЭТОМ КЛАССЕ НЕ НАДО!
-
+                //сделали
                 count++;
-
             }
         }
         if (count > 0)
@@ -187,7 +189,6 @@ public class TableOrdersManager implements OrdersManager {
         else
             return -1;
     }
-
 
 
 }

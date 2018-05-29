@@ -11,9 +11,13 @@ public class TableOrder implements Order {
     private Customer customer;
     private LocalDateTime timeOfOrder;
 
+    public static final int EMPTY_VALUE = 0;
+    public static final int SIZE_VALUE = 16;
+
     public TableOrder() {
-        items = new MenuItem[16];
-        size = 0;
+        //todo вынести дефолтные знаения в константы
+        items = new MenuItem[SIZE_VALUE];
+        size = EMPTY_VALUE;
         this.timeOfOrder = LocalDateTime.now();
     }
 
@@ -54,7 +58,7 @@ public class TableOrder implements Order {
         return timeOfOrder;
     }
 
-    public boolean removeItemFromAnOrder(MenuItem item){
+    public boolean removeItemFromAnOrder(MenuItem item) {
         for (int i = 0; i < size; i++) {
             if (items[i].equals(item)) {
                 System.arraycopy(items, i, items, i + 1, size - i - 1);
@@ -68,7 +72,7 @@ public class TableOrder implements Order {
 
     public int removeItemsFromAnOrder(MenuItem itemS) {
         int count = 0;
-        for (int i = 0; i < size ; i++) {
+        for (int i = 0; i < size; i++) {
             if (items[i].equals(itemS)) {
                 System.arraycopy(items, i, items, i + 1, size - i - 1);
                 items[size--] = null;
@@ -134,7 +138,8 @@ public class TableOrder implements Order {
                 System.arraycopy(items, i, items, i + 1, size - i - 1);
                 items[size--] = null;
                 size--;
-                i--;count++;
+                i--;
+                count++;
             }
         }
         return count;
@@ -178,7 +183,7 @@ public class TableOrder implements Order {
     @Override
     public int itemQuantity(String itemName) {
         int count = 0;
-        for (int i = 0; i < size ; i++) {
+        for (int i = 0; i < size; i++) {
             if (items[i].getName().equals(itemName)) {
                 count++;
             }
@@ -190,7 +195,7 @@ public class TableOrder implements Order {
     public int itemQuantity(MenuItem itemName) {
         int count = 0;
         for (int i = 0; i < size; i++) {
-            if (items[i].equals(itemName)){
+            if (items[i].equals(itemName)) {
                 count++;
             }
         }
@@ -203,31 +208,45 @@ public class TableOrder implements Order {
     public String[] itemsNames() {
         int count = 0;
         String[] arr = new String[size];
-        for (int i = 0; i < size ; i++) {
-            arr[i] = items[i].getName();
-        }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (arr[i] != null && arr[j] != null && arr[i].equals(arr[j])) {  //Заменяет дубликаты на null Записывает колличество нулей в переменну nulls
-                    arr[j] = null;
-                    count++;
+                if (items[i].getName().equals(dishesNames()[j])) {
+                    break;
+                } else {
+
                 }
             }
         }
-        for (int i = size - 1; i >= 0; i--) {    //Выталкиват null в конец массива.
-            for (int j = 0; j < i; j++) {
-                if (arr[j] == null) {
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = null;
-                }
-            }
-        }
-        String[] result = new String[size - count];
-        for (int i = 0; i < size; i++) {          //Удаляет нули.
-            result[i] = arr[i];
-        }
+        System.arraycopy(items, 0, arr, 0, size);
         return arr;
+
+
     }
+
+
+
+      //  for (int i = 0; i < size; i++) {
+      //      for (int j = 0; j < size; j++) {
+      //          if (arr[i] != null && arr[j] != null && arr[i].equals(arr[j])) {  //Заменяет дубликаты на null Записывает колличество нулей в переменну nulls
+      //              arr[j] = null;
+      //              count++;
+       //         }
+       //     }
+       // }
+//        for (int i = size - 1; i >= 0; i--) {    //Выталкиват null в конец массива.
+//            for (int j = 0; j < i; j++) {
+//                if (arr[j] == null) {
+//                    arr[j] = arr[j + 1];
+//                    arr[j + 1] = null;
+//                }
+//            }
+//        }
+       // String[] result = new String[size - count];
+      //  for (int i = 0; i < size; i++) {          //Удаляет нули.
+       //     result[i] = arr[i];
+       // }
+
+
 
     @Override
     public MenuItem[] sortedItemsByCostDesc() {
@@ -236,9 +255,9 @@ public class TableOrder implements Order {
         /*MenuItem[] arr = new MenuItem[size];
         //сделала
         System.arraycopy(arr, 0, items, 0, size); */
-        for (int k = 0; k < size-1 ; k++) {
-            for (int j = k+1; j < size; j++) {
-                if (arr[k].getCost()>arr[j].getCost()) {
+        for (int k = 0; k < size - 1; k++) {
+            for (int j = k + 1; j < size; j++) {
+                if (arr[k].getCost() > arr[j].getCost()) {
                     count = arr[k];
                     arr[k] = arr[j];
                     arr[j] = count;
@@ -279,7 +298,7 @@ public class TableOrder implements Order {
     public MenuItem[] sortedDishesByCostDesc() {
         MenuItem temp;
         MenuItem[] dishes1 = new MenuItem[items.length];
-        System.arraycopy(items,0, dishes1, 0, items.length);
+        System.arraycopy(items, 0, dishes1, 0, items.length);
         for (int i = 0; i < dishes1.length; i++) {
             for (int j = 0; j < dishes1.length - 1; j++) {
                 if (dishes1[j].getCost() < dishes1[j + 1].getCost()) {
@@ -297,7 +316,7 @@ public class TableOrder implements Order {
         StringBuilder string = new StringBuilder();
         string.append("TableOrder:").append(" ");
         string.append(this.size).append(" ");
-        for (int i = 0; i < size ; i++) {
+        for (int i = 0; i < size; i++) {
             string.append(this.items[i]).append(",").append("\n");
         }
         return string.toString();
@@ -308,21 +327,20 @@ public class TableOrder implements Order {
     @Override
     public boolean equals(Object obj) {
         boolean condition = true;
-        if(obj == null) {
+        if (obj == null) {
             return false;
         }
 
-        if(!(getClass() == obj.getClass()))
+        if (!(getClass() == obj.getClass()))
             return false;
-        else
-        {
+        else {
             TableOrder comparison = (TableOrder) obj;
             //todo С каких это пор содержимое объектов оператором == сравнивается???
             if (comparison.customer.equals(this.customer) && comparison.size == this.size)
-            for (int i = 0; i < items.length; i++) {
-                //todo почему это исключающее или?!?! объекты равны, если равны ВСЕ их блюда одновременно
-               condition &= comparison.items[i].equals(this.items[i]);
-            }
+                for (int i = 0; i < items.length; i++) {
+                    //todo почему это исключающее или?!?! объекты равны, если равны ВСЕ их блюда одновременно
+                    condition &= comparison.items[i].equals(this.items[i]);
+                }
         }
         return condition;
     }
@@ -330,10 +348,10 @@ public class TableOrder implements Order {
     @Override
     public int hashCode() {
         //todo hashCode() массива левый. Нужно в цикле пробегаться по элементам и использовать их хэшкоды
-       int a = customer.hashCode()^size;
+        int a = customer.hashCode() ^ size;
 
-        for (int i = 0; i <items.length ; i++) {
-            a^=items[i].hashCode();
+        for (int i = 0; i < items.length; i++) {
+            a ^= items[i].hashCode();
         }
         return a;
     }

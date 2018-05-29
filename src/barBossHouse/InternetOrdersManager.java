@@ -18,8 +18,8 @@ public class InternetOrdersManager implements OrdersManager {
         LocalDateTime now = LocalDateTime.now();
 
         for (int i = 0; i < orders.length; i++) {
-            if (now.getHour() > 22 | now.getHour() > 0 && now.getHour() < 8 | now.getYear()-orders[i].getDateOfOrder().getYear()<18)
-            throw new UnlawfulActionException("Time of sale of alcohol left");
+            if (now.getHour() > 22 | now.getHour() > 0 && now.getHour() < 8 | now.getYear() - orders[i].getDateOfOrder().getYear() < 18)
+                throw new UnlawfulActionException("Time of sale of alcohol left");
 
             listochek.add(orders[i]);
 
@@ -42,7 +42,7 @@ public class InternetOrdersManager implements OrdersManager {
     }
 
     public Order getFirstOrder() {
-        return (Order)listochek.get(0);
+        return (Order) listochek.get(0);
     }
 
     public Order getFirstOrderAndDelete() {
@@ -57,7 +57,7 @@ public class InternetOrdersManager implements OrdersManager {
 
     public Order[] getArrayQueue() {
         Order[] arr = new Order[listochek.size];
-        for (int i = 0; i < listochek.size ; i++) {
+        for (int i = 0; i < listochek.size; i++) {
             arr[i] = listochek.get(i);
         }
         return (Order[]) arr;
@@ -73,7 +73,6 @@ public class InternetOrdersManager implements OrdersManager {
     }
 
 
-
     @Override
     public int ordersQuantity() {
         return listochek.size;
@@ -82,7 +81,7 @@ public class InternetOrdersManager implements OrdersManager {
     @Override
     public Order[] getOrders() {
         Order[] arr = new Order[listochek.size];
-        for (int i = 0; i < listochek.size ; i++) {
+        for (int i = 0; i < listochek.size; i++) {
             arr[i] = listochek.get(i);
         }
         return arr;
@@ -110,7 +109,7 @@ public class InternetOrdersManager implements OrdersManager {
     public int itemsQuantity(MenuItem item) {
         int count = 0;
         for (int i = 0; i < listochek.size; i++) {
-            if(listochek.get(i).equals(item)) {
+            if (listochek.get(i).equals(item)) {
                 count++;
             }
         }

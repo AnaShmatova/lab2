@@ -12,11 +12,11 @@ public final class Customer {
     public static final Customer MATURE_UNKNOWN_CUSTOMER = new Customer(21);
     public static final Customer NOT_MATURE_UNKNOWN_CUSTOMER = new Customer(14);
 
-    public Customer(){
+    public Customer() {
         this(null, null, null, Address.EMPTY_ADDRESS);
     }
 
-    public Customer(int age){
+    public Customer(int age) {
         this(null, null, null, Address.EMPTY_ADDRESS);
     }
 
@@ -71,17 +71,16 @@ public final class Customer {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null) {
+        if (obj == null) {
             return false;
         }
 
-        if(!(getClass() == obj.getClass()))
+        if (!(getClass() == obj.getClass()))
             return false;
-        else
-        {
+        else {
             Customer comparison = (Customer) obj;
             return comparison.secondName.equals(this.secondName) && //todo ты сравниваешь экземпляр класса Customer с атрибутом - secondName,
-                //А нужно сравнивать атрибут secondName этого экземпляра c твоим атрибутом secondName
+                    //А нужно сравнивать атрибут secondName этого экземпляра c твоим атрибутом secondName
 
                     //сделала
                     comparison.equals(this.firstName) &&
@@ -92,6 +91,6 @@ public final class Customer {
 
     @Override
     public int hashCode() {
-        return secondName.hashCode()^firstName.hashCode()^birthDate.hashCode()^address.hashCode();
+        return secondName.hashCode() ^ firstName.hashCode() ^ birthDate.hashCode() ^ address.hashCode();
     }
 }

@@ -1,7 +1,6 @@
 package barBossHouse;
 
 
-
 public class Listik<T> {
 
     private Node<T> head;
@@ -16,13 +15,13 @@ public class Listik<T> {
     @Override
     public boolean equals(Object obj) {
         Listik listik = (Listik) obj;
-        boolean a =true;
+        boolean a = true;
 
         if (this.size == listik.size)
-        for (int i = 0; i < this.size; i++) {
+            for (int i = 0; i < this.size; i++) {
 
-            a&=listik.get(i).equals(this.get(i));
-        }
+                a &= listik.get(i).equals(this.get(i));
+            }
         else
             return false;
 
@@ -44,13 +43,13 @@ public class Listik<T> {
     public void add(T item) {
         Node x = head;
         Node y = null;
-        if(size==0)
-        {
+        if (size == 0) {
             head.value = item;
             size++;
             return;
         }
         //todo а зачем тебе этот цикл, если у тебя tail есть?!?!?!?!
+        //сделала
         tail.next = new Node<T>(item);
         size++;
     }
@@ -58,12 +57,12 @@ public class Listik<T> {
     public void remove(int index) {
         Node x = head;
         Node y;
-        for (int i = 0; i < index-1; i++) {
+        for (int i = 0; i < index - 1; i++) {
             y = x.next;
             x = y;
         }
         x.next = x.next.next;
-        x.next.prev=x;
+        x.next.prev = x;
         size--;
     }
 

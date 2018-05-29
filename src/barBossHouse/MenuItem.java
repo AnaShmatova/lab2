@@ -4,11 +4,19 @@ public abstract class MenuItem {
     public static final int DEFAULT_COST = 0;
     private int cost;
     private String name;
+    private  DrinkTypeEnum type;
     public String description;
+    private  double alcoholVol;
 
-    protected MenuItem(int name, String newName, DrinkTypeEnum type, String newDescription, double alcoholVol) {
-        //сделала
-        this(DEFAULT_COST, newName, newDescription);
+    //todo: дописать конструктор, есть неиспользуемые параетры
+    protected MenuItem(String name, DrinkTypeEnum type, String newDescription, double alcoholVol) {
+        //this(name, type, newDescription, alcoholVol);
+        //super(type, alcoholVol);
+       // this(DEFAULT_COST, name, newDescription);
+        this.name = name;
+        this.type = type;
+        description = newDescription;
+        this.alcoholVol = alcoholVol;
     }
 
     protected MenuItem(int cost, String name, String description) {
@@ -53,9 +61,7 @@ public abstract class MenuItem {
         }
         if (!(getClass() == obj.getClass())) {
             return false;
-        }
-        else
-        {
+        } else {
             MenuItem comparison = (MenuItem) obj;
             return comparison.equals(name) &&
                     comparison.cost == this.cost;
@@ -64,7 +70,7 @@ public abstract class MenuItem {
 
     @Override
     public int hashCode() {
-        return name.hashCode()^description.hashCode()^cost;
+        return name.hashCode() ^ description.hashCode() ^ cost;
     }
 }
 

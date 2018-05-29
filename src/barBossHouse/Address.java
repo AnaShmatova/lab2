@@ -8,15 +8,20 @@ public final class Address {
     private final int buildingNumber;
     private final char buildingLetter;
     private final int apartmentNumber;
+    public static final String DEFAULT_CITY="Samara";
+    public static final int NEGATIVE_VALUE = -1;
+    public static final String NULL_VALUE = null;
+    public static final int EMPTY_VALUE = 0;
+    public static final char LITERAL_VALUE = ' ';
 
     public static final Address EMPTY_ADDRESS = new Address();
-
-    public Address(){
-        this(null,null,-1,-1,' ', -1);
+    //default values
+    public Address() {
+        this(NULL_VALUE, NULL_VALUE, NEGATIVE_VALUE, NEGATIVE_VALUE, LITERAL_VALUE, NEGATIVE_VALUE);
     }
 
-    public Address(String streetName, int buildingNumber, char buildingLetter, int apartmentNumber){
-        this("Самара", null, -1,0,' ', 0);
+    public Address(String streetName, int buildingNumber, char buildingLetter, int apartmentNumber) {
+        this(DEFAULT_CITY, NULL_VALUE, NEGATIVE_VALUE, EMPTY_VALUE, LITERAL_VALUE, EMPTY_VALUE);
 
     }
 
@@ -86,14 +91,13 @@ public final class Address {
     }
 
     public boolean equals(Object obj) {
-        if(obj == null) {
+        if (obj == null) {
             return false;
         }
 
-        if(!(getClass() == obj.getClass()))
+        if (!(getClass() == obj.getClass()))
             return false;
-        else
-        {
+        else {
             Address comparison = (Address) obj;
             return comparison.cityName.equals(this.cityName) && //todo ты сравниваешь экземпляр класса Address с атрибутом - название города (строка),
                     //А нужно сравнивать атрибут cityName этого экземпляра c твоим атрибутом cityName
@@ -109,6 +113,6 @@ public final class Address {
 
     @Override
     public int hashCode() {
-        return cityName.hashCode()^streetName.hashCode()^zipCode^buildingNumber^buildingLetter^apartmentNumber;
+        return cityName.hashCode() ^ streetName.hashCode() ^ zipCode ^ buildingNumber ^ buildingLetter ^ apartmentNumber;
     }
 }

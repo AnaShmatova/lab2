@@ -14,19 +14,19 @@ public class InternetOrder implements Order {
         this.timeOfOrder = LocalDateTime.now();
     }
 
-    public InternetOrder(MenuItem[] items, Customer customer){
-        for (int i = 0; i < items.length ; i++) {
+    public InternetOrder(MenuItem[] items, Customer customer) {
+        for (int i = 0; i < items.length; i++) {
             listochek.add(items[i]);
         }
         this.customer = customer;
         this.timeOfOrder = LocalDateTime.now();
     }
 
-    public boolean add (MenuItem item) {
+    public boolean add(MenuItem item) {
 
         LocalDateTime now = LocalDateTime.now();
 
-        if (now.getHour() > 22 || now.getHour() < 8 ) {
+        if (now.getHour() > 22 || now.getHour() < 8) {
             throw new UnlawfulActionException("Time of sale of alcohol left");
         }
 
@@ -34,9 +34,9 @@ public class InternetOrder implements Order {
         return true;
     }
 
-    public boolean remove (String itemName) {
+    public boolean remove(String itemName) {
         for (int i = 0; i < listochek.size; i++) {
-            if(listochek.get(i).getName().equals(itemName)) {
+            if (listochek.get(i).getName().equals(itemName)) {
                 listochek.remove(i);
                 return true;
             }
@@ -46,7 +46,7 @@ public class InternetOrder implements Order {
 
     public boolean remove(MenuItem item) {
         for (int i = 0; i < listochek.size; i++) {
-            if(listochek.get(i).equals(item)) {
+            if (listochek.get(i).equals(item)) {
                 listochek.remove(i);
                 return true;
             }
@@ -54,10 +54,10 @@ public class InternetOrder implements Order {
         return false;
     }
 
-    public int removeAll (String itemName) {
+    public int removeAll(String itemName) {
         int count = 0;
         for (int i = 0; i < listochek.size; i++) {
-            if (listochek.get(i).getName().equals(itemName)){
+            if (listochek.get(i).getName().equals(itemName)) {
                 listochek.remove(i);
                 i--; //todo эту строчку я добавил, ибо если ты удалила элемент, то нужно оставться на том же значении i
                 count++;
@@ -84,7 +84,7 @@ public class InternetOrder implements Order {
 
     public MenuItem[] getItems() {
         MenuItem[] arr = new MenuItem[listochek.size];
-        for (int i = 0; i < listochek.size ; i++) {
+        for (int i = 0; i < listochek.size; i++) {
             arr[i] = listochek.get(i);
         }
         return arr;
@@ -93,7 +93,7 @@ public class InternetOrder implements Order {
     public int costTotal() {
         int count = 0;
         for (int i = 0; i < listochek.size; i++) {
-            count+=listochek.get(i).getCost();
+            count += listochek.get(i).getCost();
         }
         return count;
     }
@@ -102,7 +102,7 @@ public class InternetOrder implements Order {
     public int itemQuantity(String name) {
         int count = 0;
         for (int i = 0; i < listochek.size; i++) {
-            if (listochek.get(i).getName().equals(name)){
+            if (listochek.get(i).getName().equals(name)) {
                 count++;
             }
         }
@@ -112,16 +112,16 @@ public class InternetOrder implements Order {
     public int itemQuantity(MenuItem item) {
         int count = 0;
         for (int i = 0; i < listochek.size; i++) {
-            if(listochek.get(i).equals(item)) {
+            if (listochek.get(i).equals(item)) {
                 count++;
             }
         }
         return count;
     }
 
-    public String[] itemsNames(){
+    public String[] itemsNames() {
         String[] arr = new String[listochek.size];
-        for (int i = 0; i < listochek.size ; i++) {
+        for (int i = 0; i < listochek.size; i++) {
             arr[i] = listochek.get(i).getName();
         }
         return arr;
@@ -133,9 +133,9 @@ public class InternetOrder implements Order {
         MenuItem count = null;
         MenuItem[] arr = getItems();
 
-        for (int k = 0; k < listochek.size-1 ; k++) {
-            for (int j = k+1; j < listochek.size; j++) {
-                if (arr[k].getCost()>arr[j].getCost()) {
+        for (int k = 0; k < listochek.size - 1; k++) {
+            for (int j = k + 1; j < listochek.size; j++) {
+                if (arr[k].getCost() > arr[j].getCost()) {
                     count = arr[k];
                     arr[k] = arr[j];
                     arr[j] = count;
@@ -169,40 +169,36 @@ public class InternetOrder implements Order {
         StringBuilder string = new StringBuilder();
         string.append("InternetOrder:").append(customer.toString()).append("\n");
         string.append(this.listochek.size).append("\n");
-        for (int i = 0; i < listochek.size ; i++) {
+        for (int i = 0; i < listochek.size; i++) {
             string.append(this.listochek.get(i)).append(",").append("\n");
         }
         return string.toString();
     }
 
-    //todo исправить насчет equals, написать проверку на каждый лемент (fori)
     @Override
     public boolean equals(Object obj) {
-        if(obj == null) {
+        if (obj == null) {
             return false;
         }
 
-        if(!(getClass() == obj.getClass()))
+        if (!(getClass() == obj.getClass()))
             return false;
-        else
-        {
+        else {
             InternetOrder comparison = (InternetOrder) obj;
             //todo С каких это пор содержимое объектов оператором == сравнивается???
             //сделала
             return comparison.customer.equals(customer) &&
                     comparison.listochek.equals(this.listochek);
-            //todo где цикл на сравнение ээлементов списка? в предыдущей todoшке было же
         }
     }
 
     @Override
     public int hashCode() {
-       int a = customer.hashCode();
+        int a = customer.hashCode();
 
-        for (int i = 0; i <this.listochek.size ; i++) {
-            a^=listochek.get(i).hashCode();
+        for (int i = 0; i < this.listochek.size; i++) {
+            a ^= listochek.get(i).hashCode();
         }
         return a;
-        //todo А где хэшкоды всей айтемов?
     }
 }
