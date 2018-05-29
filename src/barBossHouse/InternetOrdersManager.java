@@ -115,6 +115,7 @@ public class InternetOrdersManager implements OrdersManager {
         }
         return count;
     }
+    //dr
 
     @Override
     public int getNumberOrder(LocalDate numberOrderOfDay) {
