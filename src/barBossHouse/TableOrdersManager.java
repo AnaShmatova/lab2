@@ -128,19 +128,36 @@ public class TableOrdersManager implements OrdersManager {
     public int getNumberOrder(LocalDate numberOrderOfDay) {
         int count = 0;
         for (int i = 0; i < orders.length; i++) {
-            if(orders[i].)
+            if(orders[i].getDateOfOrder().equals(numberOrderOfDay))
+                count++;
         }
         return count;
     }
 
     @Override
     public Listik getListOrder(LocalDate listOrderOfDay) {
-        return null;
+        Listik<Order> listik = new Listik<>();
+        for (int i = 0; i <orders.length ; i++) {
+            if(orders[i].getDateOfOrder().equals(listOrderOfDay))
+            {
+                listik.add(orders[i]);
+            }
+        }
+        return listik;
     }
 
     @Override
     public Listik getListOrderOfCustomer(Customer customer) {
-        return null;
+        Listik<Order> listik = new Listik<>();
+
+        for (int i = 0; i <orders.length ; i++) {
+            if(orders[i].getCustomer().equals(customer))
+            {
+                listik.add(orders[i]);
+            }
+        }
+        return listik;
+
     }
 
 

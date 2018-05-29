@@ -118,16 +118,36 @@ public class InternetOrdersManager implements OrdersManager {
 
     @Override
     public int getNumberOrder(LocalDate numberOrderOfDay) {
-        return 0;
+        int count = 0;
+        for (int i = 0; i < listochek.size; i++) {
+            if(listochek.get(i).getDateOfOrder().equals(numberOrderOfDay))
+                count++;
+        }
+        return count;
     }
 
     @Override
     public Listik getListOrder(LocalDate listOrderOfDay) {
-        return null;
+        Listik<Order> listik = new Listik<>();
+        for (int i = 0; i <listochek.size ; i++) {
+            if(listochek.get(i).getDateOfOrder().equals(listOrderOfDay))
+            {
+                listik.add(listochek.get(i));
+            }
+        }
+        return listik;
     }
 
     @Override
     public Listik getListOrderOfCustomer(Customer customer) {
-        return null;
+        Listik<Order> listik = new Listik<>();
+
+        for (int i = 0; i <listochek.size ; i++) {
+            if(listochek.get(i).getCustomer().equals(customer))
+            {
+                listik.add(listochek.get(i));
+            }
+        }
+        return listik;
     }
 }
