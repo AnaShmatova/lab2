@@ -132,6 +132,7 @@ public class TableOrdersManager implements OrdersManager {
                 count++;
         }
         return count;
+        //
     }
 
     @Override
